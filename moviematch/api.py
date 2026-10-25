@@ -16,4 +16,6 @@ def recommend(user_id: str, limit: int = 3, genre: str | None = None) -> list[st
     ratings = RATINGS.get(user_id)
     if not ratings:
         raise NoHistoryError(user_id)
+    if genre is not None:
+        genre = genre.casefold()
     return [movie.movie_id for movie in rank(ratings, genre)[:limit]]
