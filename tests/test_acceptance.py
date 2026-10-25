@@ -4,7 +4,7 @@ from moviematch.api import NoHistoryError, recommend
 
 
 def test_rated_user_gets_affinity_ranked_movies():
-    assert recommend("u-ana") == ["m07", "m06", "m05"]
+    assert recommend("u-ana", limit=3) == ["m07", "m06", "m05"]
 
 
 def test_rated_titles_are_not_recommended_again():
@@ -12,7 +12,7 @@ def test_rated_titles_are_not_recommended_again():
 
 
 def test_genre_filter():
-    assert recommend("u-ben", genre="family") == ["m05"]
+    assert recommend("u-ben", limit=3, genre="family") == ["m05"]
 
 
 def test_limit_is_respected():
@@ -21,4 +21,4 @@ def test_limit_is_respected():
 
 def test_unknown_user_has_no_history():
     with pytest.raises(NoHistoryError):
-        recommend("u-new")
+        recommend("u-new", limit=3)
