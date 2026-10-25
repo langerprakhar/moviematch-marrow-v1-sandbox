@@ -12,6 +12,10 @@ class NoHistoryError(LookupError):
     """The user has no ratings yet."""
 
 
+def recommend_for_all(user_ids):
+    return {user_id: recommend(user_id) for user_id in user_ids}
+
+
 def recommend(user_id: str, limit: int = 3, genre: str | None = None) -> list[str]:
     ratings = RATINGS.get(user_id)
     if not ratings:
